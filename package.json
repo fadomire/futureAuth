@@ -2,13 +2,13 @@
   "name": "futureAuth",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
-    "request": "*",
-    "socket.io": "*",
-    "mongodb": "*"
+    "express": "3.0.6",
+    "request": "2.12.0",
+    "socket.io": "0.9.13",
+    "mongodb": "1.2.9"
   },
   "engines": {
-    "node": "*",
-    "npm": "*"
+    "node": "0.8.16",
+    "npm": "1.1.69"
   }
 }
