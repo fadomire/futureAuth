@@ -21,6 +21,7 @@ io.sockets.on('connection', function (socket) {
     var imageBase = image.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(imageBase, 'base64');
     mongodb.MongoClient.connect(dbUri, {auto_reconnect: true}, function (error, db){
+      console.log(error);
       var Users = db.collection("users")
       Users.distinct("name",function (err, items){
         db.close();
