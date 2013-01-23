@@ -1,0 +1,10 @@
+@media (min-width:980px) {
+  body {
+    padding-top: 40px;
+  }
+}
+.container {
+  text-align: center;
+}
+video { width: 40%; }
+canvas { width: 40%; }

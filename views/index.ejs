@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Future Auth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+   
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Future Auth</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+<section id="splash">
+  <p id="errorMessage" class="text-error"></p>
+  <p id="successMessage" class="text-success"></p>
+</section>
+<section id="app" hidden>
+  <p>Welcome, this demo allow you to authenticate yourself based on webcam face recognition.</p>
+  <p>You need to use Chrome browser and accept the request to use your webcam.</p>
+  <p><video id="monitor" autoplay></video> <canvas id="photo" style="display:none;"></canvas></p>
+  <p>
+    <input value="Login" type=button id="snapshotbutton" class="btn btn-info btn-large">
+    <p>&nbsp;OR&nbsp;</p>
+    <div class="input-append">
+      <input class="span2" id="username" type="text" placeholder="Username">
+      <button id="signup" class="btn" type="button">Sign Up</button>
+    </div>
+  </p>
+    
+
+  <div id="result"></div>
+<p>
+This is a work in progess and currently done in few hours.
+</p>
+<p>
+A lot of things are just not secured, working or properly made.
+</p>
+<p>
+Almost all Credits goes to :<br/>
+Raymond Camden http://www.raymondcamden.com/index.cfm/2012/4/6/Face-detection-with-getUserMedia<br/>
+who credit miernicki.com/cam.html 
+</p>
+</section>
+
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/client.js"></script>
+
+  </body>
+</html>
