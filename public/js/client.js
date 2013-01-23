@@ -1,5 +1,5 @@
 function init() {
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('/');
   socket.on('loginCallback', function (data) {
     // convert json response to object
     var response = JSON.parse(data);

@@ -16,8 +16,6 @@ var app = express()
 
 server.listen(port);
 
-console.log(dbUri);
-
 io.sockets.on('connection', function (socket) {
   socket.on('login', function (image) {
     var imageBase = image.replace(/^data:image\/\w+;base64,/, "");
