@@ -3,6 +3,11 @@ var express = require("express"),
     io = require('socket.io'),
     mongodb = require('mongodb');
 
+io.configure(function(){
+  io.set("transports", ["xhr-polling"])
+  io.set("polling duration", 10)
+})
+  
 var port = process.env.PORT || 8080,
     dbUri = process.env.MONGOLAB_URI || "mongodb://localhost:27017/futureAuth";
 
