@@ -8,8 +8,8 @@ var express = require("express"),
 db.open(function(e, db) {})
 var Users = db.collection('users');
 
-var faceKey = "a2b52f300a024462add48bebefc1b243";
-var faceSecret = "c34b7fd4f43e43e8b8fbc44a933d03ac";
+var faceKey = "1e9a6adc96ca4f8b845d246351e4d25b";
+var faceSecret = "23515e6100d94cbbb9a44f68b3874707";
 
 var app = express()
   , server = require('http').createServer(app)

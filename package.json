@@ -1,0 +1,14 @@
+{
+  "name": "futureAuth",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "request": "*",
+    "socket.io": "*",
+    "mongodb": "*"
+  },
+  "engines": {
+    "node": "*",
+    "npm": "*"
+  }
+}
