@@ -3,10 +3,7 @@ var express = require("express"),
     io = require('socket.io'),
     mongodb = require('mongodb');
 
-io.configure(function(){
-  io.set("transports", ["xhr-polling"])
-  io.set("polling duration", 10)
-})
+
   
 var port = process.env.PORT || 8080,
     dbUri = process.env.MONGOLAB_URI || "mongodb://localhost:27017/futureAuth";
@@ -18,6 +15,11 @@ var faceSecret = "23515e6100d94cbbb9a44f68b3874707";
 var app = express()
   , server = require('http').createServer(app)
   , io = io.listen(server);
+
+io.configure(function(){
+  io.set("transports", ["xhr-polling"])
+  io.set("polling duration", 10)
+})
 
 server.listen(port);
 
