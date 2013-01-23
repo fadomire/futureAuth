@@ -3,7 +3,8 @@ var express = require("express"),
     io = require('socket.io'),
     mongodb = require('mongodb'),
     server = new mongodb.Server('localhost', 27017, {auto_reconnect: true}),
-    db = new mongodb.Db('futureAuth', server, {safe:true});
+    db = new mongodb.Db('futureAuth', server, {safe:true}),
+    port = process.env.PORT || 8080;
 
 db.open(function(e, db) {})
 var Users = db.collection('users');
@@ -15,7 +16,7 @@ var app = express()
   , server = require('http').createServer(app)
   , io = io.listen(server);
 
-server.listen(8080);
+server.listen(port);
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function (image) {
