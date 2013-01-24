@@ -16,34 +16,31 @@ function init() {
   window.URL = window.URL || window.webkitURL;
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
                           navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
   if (navigator.getUserMedia) {
-
-    function gotStream(stream) {
-
-      video.src = window.URL.createObjectURL(stream);
+    var video = document.getElementById('monitor');
+    var canvas = document.getElementById('photo');
+    navigator.getUserMedia({video:true},
+    function successCallback(stream) {
+      // Replace the source of the video element with the stream from the camera
+      if(navigator.getUserMedia==navigator.mozGetUserMedia) {
+          video.src = stream;
+      } else {
+          video.src = window.URL.createObjectURL(stream) || stream;
+      }
       video.onerror = function () {
-        stream.stop();
-        streamError();
-      };
+        document.getElementById('errorMessage').textContent = 'Camera error.';
+      }
+      video.play();
       document.getElementById('splash').hidden = true;
       document.getElementById('app').hidden = false;
       $("#snapshotbutton").click(snapshot);
       $("#signup").click(signup);
-    }
-
-    function noStream() {
+    },
+    function errorCallback(error) {
       document.getElementById('errorMessage').textContent = 'No camera available.';
-    }
+    });
 
-    function streamError() {
-      document.getElementById('errorMessage').textContent = 'Camera error.';
-    }
-
-    navigator.getUserMedia({video:true}, gotStream, noStream);
-
-    var video = document.getElementById('monitor');
-    var canvas = document.getElementById('photo');
-    
     function snapshot() {
       $("#result").html("<p><i>Authentication ongoing...</i></p>");
 
