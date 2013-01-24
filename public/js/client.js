@@ -13,16 +13,14 @@ function init() {
     document.getElementById('errorMessage').textContent = 'Sorry username '+data+' is already taken';
     $("#result").html("");
   });
-  if (navigator.webkitGetUserMedia) {
-
-    navigator.webkitGetUserMedia({video:true}, gotStream, noStream);
-
-    var video = document.getElementById('monitor');
-    var canvas = document.getElementById('photo');
+  window.URL = window.URL || window.webkitURL;
+  navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  if (navigator.getUserMedia) {
 
     function gotStream(stream) {
 
-      video.src = webkitURL.createObjectURL(stream);
+      video.src = window.URL.createObjectURL(stream);
       video.onerror = function () {
         stream.stop();
         streamError();
@@ -41,6 +39,11 @@ function init() {
       document.getElementById('errorMessage').textContent = 'Camera error.';
     }
 
+    navigator.getUserMedia({video:true}, gotStream, noStream);
+
+    var video = document.getElementById('monitor');
+    var canvas = document.getElementById('photo');
+    
     function snapshot() {
       $("#result").html("<p><i>Authentication ongoing...</i></p>");
 
@@ -81,6 +84,7 @@ function init() {
           $("#app").html("<h2>Welcome "+photo.tags[0].uids[0].uid.split('@')[0]+" !</h2>");
           $("#result").html("");
           document.getElementById('errorMessage').textContent = '';
+          document.getElementById('successMessage').textContent = '';
         }else{
           document.getElementById('errorMessage').textContent = 'Sorry you were not recognized';
         }

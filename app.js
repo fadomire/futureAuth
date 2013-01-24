@@ -149,5 +149,4 @@ app.configure(function(){
 app.get('/', function(req, res){
   res.render('index', {})
 });
-app.use(express.static(__dirname + '/public'));
 console.log('Listening on port 8080');

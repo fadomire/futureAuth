@@ -8,3 +8,8 @@
 }
 video { width: 40%; }
 canvas { width: 40%; }
+footer {
+  position:absolute;
+  bottom: 10px;
+  text-align: left;
+}
