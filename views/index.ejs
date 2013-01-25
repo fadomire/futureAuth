@@ -1,78 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Future Auth</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <title>Future Auth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-   
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!-- Le styles -->
+  <link href="css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="css/base.css" rel="stylesheet">
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
+      <![endif]-->
+    </head>
 
-  <body>
+    <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">Future Auth</a>
-          <a href="https://github.com/FlintMakal/futureAuth"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="/">Future Auth</a>
+            <a href="https://github.com/FlintMakal/futureAuth"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container">
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            <div class="well">
+              <p>Welcome, <br/>this demo allow you to authenticate based on webcam face recognition.</p>
+              <hr/>
+              <p>Browser support :<br/></p>
+              <div class="media">
+                <a class="pull-left" href="#">
+                  <img class="media-object" src="img/chrome.png">
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading">Chrome</h4>
+                  your version should work
+                </div>
+              </div>
+              <hr/>
+              <small class="muted">
+                Credits to :<br/>
+                <a href="http://www.raymondcamden.com/index.cfm/2012/4/6/Face-detection-with-getUserMedia" target="_blank">Raymond Camden</a><br/>
+                <a href="http://miernicki.com/cam.html" target="_blank">Miernicki</a> 
+              </small>
+            </div>
+          </div>
+          <div class="span5 center">
+            <div id="alert_placeholder">
 
-<section id="splash">
-  <p id="errorMessage" class="text-error"></p>
-  <p id="successMessage" class="text-success"></p>
-</section>
-<section id="app" hidden>
-  <p>Welcome, this demo allow you to authenticate based on webcam face recognition.</p>
-  <p>Your browser needs to suport webRTC see <a href="http://caniuse.com/stream">Can i use</a></p>
-  <p><video id="monitor" autoplay></video> <canvas id="photo" style="display:none;"></canvas></p>
-  <p>
-    <input value="Login" type=button id="snapshotbutton" class="btn btn-info btn-large">
-    <p>&nbsp;OR&nbsp;</p>
-    <div class="input-append">
-      <input class="span2" id="username" type="text" placeholder="Username">
-      <button id="signup" class="btn" type="button">Sign Up</button>
-    </div>
-  </p>
-    
+            </div>
+            <section id="app">
 
-  <div id="result"></div>
-
-
-</section>
-<footer>
-<small class="muted">
-Credits to :<br/>
-<a href="http://www.raymondcamden.com/index.cfm/2012/4/6/Face-detection-with-getUserMedia" target="_blank">Raymond Camden</a><br/>
-<a href="http://miernicki.com/cam.html" target="_blank">Miernicki</a> 
-</small>
-</footer>
-
-    </div> <!-- /container -->
+              <p><video id="monitor" autoplay></video> <canvas id="photo" style="display:none;"></canvas></p>
+              <div class="form-inline">
+                <input value="Login" type=button id="snapshotbutton" class="btn btn-info btn-large">
+                &nbsp;OR&nbsp;
+                <div class="input-append">
+                  <input class="span2" id="username" type="text" placeholder="Username">
+                  <button id="signup" class="btn" type="button">Sign Up</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div> <!-- /row -->
+      </div> <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/bootstrap-alert.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/client.js"></script>
 
   </body>
-</html>
+  </html>

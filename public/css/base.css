@@ -1,15 +1,10 @@
 @media (min-width:980px) {
   body {
-    padding-top: 40px;
+    padding-top: 60px;
   }
 }
-.container {
+video { width: 100%; }
+canvas { width: 100%; }
+.center{
   text-align: center;
-}
-video { width: 40%; }
-canvas { width: 40%; }
-footer {
-  position:absolute;
-  bottom: 10px;
-  text-align: left;
 }

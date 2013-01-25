@@ -6,43 +6,33 @@ function init() {
     handleResult(response.photos[0]);
   });
   socket.on('signupSuccessCallback', function (data) {
-    document.getElementById('successMessage').textContent = 'Your signed up, you can now login';
-    $("#result").html("");
+    alertHandling('alert-success', 'Your signed up, you can now login');
   });
   socket.on('signupFailCallback', function (data) {
-    document.getElementById('errorMessage').textContent = 'Sorry username '+data+' is already taken';
-    $("#result").html("");
+    alertHandling('alert-error', 'Sorry username '+data+' is already taken');
   });
-  window.URL = window.URL || window.webkitURL;
+
+  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                          navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
   if (navigator.getUserMedia) {
     var video = document.getElementById('monitor');
     var canvas = document.getElementById('photo');
     navigator.getUserMedia({video:true},
-    function successCallback(stream) {
-      // Replace the source of the video element with the stream from the camera
-      if(navigator.getUserMedia==navigator.mozGetUserMedia) {
-          video.src = stream;
-      } else {
-          video.src = window.URL.createObjectURL(stream) || stream;
-      }
-      video.onerror = function () {
-        document.getElementById('errorMessage').textContent = 'Camera error.';
-      }
-      video.play();
-      document.getElementById('splash').hidden = true;
-      document.getElementById('app').hidden = false;
-      $("#snapshotbutton").click(snapshot);
-      $("#signup").click(signup);
-    },
-    function errorCallback(error) {
-      document.getElementById('errorMessage').textContent = 'No camera available.';
-    });
+      function successCallback(stream) {
+        video.src = window.URL.createObjectURL(stream) || stream;
+        video.play();
+        
+        $("#snapshotbutton").click(snapshot);
+        $("#signup").click(signup);
+      },
+      function errorCallback(error) {
+        alertHandling('alert-error', 'No camera available.');
+      });
 
     function snapshot() {
-      $("#result").html("<p><i>Authentication ongoing...</i></p>");
+      alertHandling('alert-info', 'Authentication ongoing...');
 
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -50,12 +40,12 @@ function init() {
 
       var dataUrl = canvas.toDataURL('image/jpeg', 1.0);
       socket.emit("login",dataUrl);
- 
+
       
     }
 
     function signup() {
-      $("#result").html("<p><i>Registration ongoing...</i></p>");
+      alertHandling('alert-info', 'Registration ongoing..');
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       canvas.getContext('2d').drawImage(video, 0, 0);
@@ -68,31 +58,31 @@ function init() {
           image: dataUrl
         });
       }else{
-        document.getElementById('errorMessage').textContent = 'Please enter a name to signup';
-        $("#result").html("");
+        alertHandling('alert-error', 'Please enter a name to signup');
       }
     }
 
 
     function handleResult(photo) {
-      $("#result").html("");
       try{
         if(photo.tags[0].uids[0].confidence > 50){
-          $("#app").html("<h2>Welcome "+photo.tags[0].uids[0].uid.split('@')[0]+" !</h2>");
-          $("#result").html("");
-          document.getElementById('errorMessage').textContent = '';
-          document.getElementById('successMessage').textContent = '';
+          alertHandling('alert-success', 'Welcome '+photo.tags[0].uids[0].uid.split('@')[0]+' !');
+          $("#app").html("");
         }else{
-          document.getElementById('errorMessage').textContent = 'Sorry you were not recognized';
+          alertHandling('alert-error', 'Sorry you were not recognized');
         }
       }catch(e){
-        document.getElementById('errorMessage').textContent = 'Sorry you were not recognized';
+        alertHandling('alert-error', 'Sorry you were not recognized');
       }
       
     }
 
+    function alertHandling(type, message){
+      $('#alert_placeholder').html('<div class="alert '+type+'"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+    }
+
   } else {
-    document.getElementById('errorMessage').textContent = 'No native camera support available.';
+    alertHandling('alert-error', 'No native camera support available.');
   }
 
 }
