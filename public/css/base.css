@@ -8,3 +8,17 @@ canvas { width: 100%; }
 .center{
   text-align: center;
 }
+.chrome{
+  width: 48px;
+  height: 48px;
+  background-image: url(../img/icon-browser-48x48.png);
+  background-repeat: no-repeat;
+  background-position: -48px 0;
+}
+.opera{
+  width: 48px;
+  height: 48px;
+  background-image: url(../img/icon-browser-48x48.png);
+  background-repeat: no-repeat;
+  background-position: 0 -144px;
+}
