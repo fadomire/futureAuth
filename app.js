@@ -1,25 +1,21 @@
 var express = require("express"),
     request = require("request"),
     io = require('socket.io'),
-    mongodb = require('mongodb');
-
+    mongodb = require('mongodb'),
+    BSON = require('mongodb').BSONPure;
 
   
 var port = process.env.PORT || 8080,
     dbUri = process.env.MONGOLAB_URI || "mongodb://localhost:27017/futureAuth";
 
 
-var faceKey = "1e9a6adc96ca4f8b845d246351e4d25b";
-var faceSecret = "23515e6100d94cbbb9a44f68b3874707";
+var faceKey = "replaceThiswithYourKey";
+var faceSecret = "replaceThiswithYourKey";
 
 var app = express()
   , server = require('http').createServer(app)
   , io = io.listen(server);
 
-// io.configure(function(){
-//   io.set("transports", ["xhr-polling"])
-//   io.set("polling duration", 10)
-// })
 
 server.listen(port);
 
@@ -65,7 +61,23 @@ io.sockets.on('connection', function (socket) {
           }]
         }, 
         function(err, res, body){
-          socket.emit("loginCallback", body);
+          // convert json response to object
+          var jsonResponse = JSON.parse(body);
+          console.log(jsonResponse)
+          try{
+            console.log(jsonResponse.photos[0].tags[0].uids[0])
+            if(jsonResponse.photos[0].tags[0].uids[0].confidence > 40){
+              var userId = BSON.ObjectID.createFromHexString(jsonResponse.photos[0].tags[0].uids[0].uid.split("@")[0]);
+              Users.findOne({_id: userId},function(err, doc) {
+                  socket.emit("loginSuccess", doc.name);
+              });
+            }else{
+              socket.emit("loginFail", "Sorry you were not recognized");
+            }
+          }catch(e){
+            console.log("exception"+e)
+            socket.emit("loginFail", "Sorry you were not recognized");
+          }          
         });
       });
     })
@@ -164,3 +176,4 @@ app.get('/', function(req, res){
   res.render('index', {})
 });
 console.log('Listening on port 8080');
+console.log(process.env.MONGOLAB_URI)

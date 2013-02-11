@@ -1,6 +1,6 @@
 {
   "name": "futureAuth",
-  "version": "0.0.1",
+  "version": "0.0.1-16",
   "dependencies": {
     "express": "3.0.6",
     "request": "2.12.0",
@@ -9,7 +9,11 @@
     "ejs": "0.8.3"
   },
   "engines": {
-    "node": "0.8.14",
+    "node": "0.8.x",
     "npm": "1.1.65"
+  },
+  "subdomain": "fadomire.futureAuth",
+  "scripts": {
+    "start": "app.js"
   }
 }
