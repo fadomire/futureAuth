@@ -21,10 +21,11 @@ server.listen(port);
 
 io.sockets.on('connection', function (socket) {
   socket.on('login', function (image) {
+    console.log(image)
     var imageBase = image.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(imageBase, 'base64');
     mongodb.MongoClient.connect(dbUri, {auto_reconnect: true}, function (error, db){
-      console.log(error);
+      
       var Users = db.collection("users")
       Users.distinct("_id",function (err, items){
         db.close();
@@ -92,6 +93,7 @@ io.sockets.on('connection', function (socket) {
           socket.emit("signupFailCallback", "Sorry username "+item.name+" is already taken");
         }else{
           var imageBase = data.image.replace(/^data:image\/\w+;base64,/, "");
+          //console.log(imageBase)
           var buf = new Buffer(imageBase, 'base64');
           request({
             url: 'http://api.skybiometry.com/fc/faces/detect.json',
@@ -176,4 +178,3 @@ app.get('/', function(req, res){
   res.render('index', {})
 });
 console.log('Listening on port 8080');
-console.log(process.env.MONGOLAB_URI)

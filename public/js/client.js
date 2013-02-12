@@ -20,24 +20,17 @@ function init() {
     navigator.getUserMedia({video:true},
       function successCallback(stream) {
         video.src = window.URL.createObjectURL(stream) || stream;
-        try {
-          var pc = new PeerConnection();
-          pc.addStream(stream);
-        }catch(e){
-
-        }
-        
         video.play();
-        
-        $("#snapshotbutton").click(snapshot);
-        $("#signup").click(signup);
       },
       function errorCallback(error) {
         alertHandling('alert-error', 'No camera available.');
       });
   } else {
-    alertHandling('alert-error', 'No native camera support available.');
+    $("#monitor").hide();
+    alertHandling('alert-error', 'Your browser does not support getUserMedia, fallback to selecting a file when clicking or login or signup');
   }
+  $("#snapshotbutton").click(snapshot);
+  $("#signup").click(signup);
 }, 500);
   
 
@@ -46,66 +39,42 @@ function alertHandling(type, message){
   $('#alert_placeholder').html('<div class="alert '+type+'"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
 }
 function snapshot() {
-  alertHandling('alert-info', 'Authentication ongoing...');
-  if($("img").length>3){
-    var snapshot = document.getElementsByTagName("img")[3].cloneNode(true);
-    
-    $.ajax({
-      url: snapshot.src,
-      cache: false,
-      success:function(html){
-        console.log(html);
-      },
-      error:function(XMLHttpRequest, textStatus, errorThrows){
-        console.log(errorThrows)
-        console.log(XMLHttpRequest)
-        console.log(textStatus)
-      }
-    });
-    console.log("hello")
-    // setTimeout(function () {
-    //   canvas.width = snapshot.width;
-    //   canvas.height = snapshot.height;
-    //   canvas.getContext('2d').drawImage(snapshot, 0, 0);
-    //   var dataUrl = canvas.toDataURL('image/jpeg', 1.0);
-    //   console.log(dataUrl);
-    //   socket.emit("login",dataUrl);
-    // }, 500);
-  }else{
+  
+  if (navigator.getUserMedia) {
+    alertHandling('alert-info', 'Authentication ongoing...');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     var dataUrl = canvas.toDataURL('image/jpeg', 1.0);
-    console.log(dataUrl);
+    //console.log(dataUrl);
     socket.emit("login",dataUrl);
+  }else{
+    $("#snapshotFile").trigger("click");
+    $("#snapshotFile").change(function(event){ 
+      var file = event.target.files[0];
+      alertHandling('alert-info', 'Authentication ongoing...');
+      var fileReader = new FileReader();
+      fileReader.onload = function (event) {
+        //console.log(event.target.result);
+        socket.emit("login",event.target.result);
+      };
+      fileReader.readAsDataURL(file);
+    });
   }
+  
+  
+  
+  
 }
 function signup() {
-      
-  alertHandling('alert-info', 'Registration ongoing..');
   var username = $("#username").val();
-  if($("img").length>3){
-    var snapshot = document.getElementsByTagName("img")[3].cloneNode(true);
-    
-    setTimeout(function () {
-      canvas.width = snapshot.width;
-      canvas.height = snapshot.height;
-      canvas.getContext('2d').drawImage(snapshot, 0, 0);
-      var dataUrl = canvas.toDataURL('image/jpeg', 1.0);
-      if(username!=""){
-        socket.emit("signup",{
-          username: username,
-          image: dataUrl
-        });
-      }else{
-        alertHandling('alert-error', 'Please enter a name to signup');
-      } 
-    }, 500);
-  }else{
+  if (navigator.getUserMedia) {
+    alertHandling('alert-info', 'Registration ongoing..');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     var dataUrl = canvas.toDataURL('image/jpeg', 1.0);
+    //console.log(dataUrl)
     if(username!=""){
       socket.emit("signup",{
         username: username,
@@ -114,6 +83,25 @@ function signup() {
     }else{
       alertHandling('alert-error', 'Please enter a name to signup');
     }
+  }else{
+    $("#snapshotFile").trigger("click");
+    $("#snapshotFile").change(function(event){
+      var file = event.target.files[0];
+      alertHandling('alert-info', 'Registration ongoing..');
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function (event) {
+        //console.log(event.target.result);
+        if(username!=""){
+          socket.emit("signup",{
+            username: username,
+            image: event.target.result
+          });
+        }else{
+          alertHandling('alert-error', 'Please enter a name to signup');
+        }
+      };
+    });
   }
 }
 

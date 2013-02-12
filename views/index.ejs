@@ -32,7 +32,7 @@
         <div class="row">
           <div class="span4">
             <div class="well">
-              <p>Welcome, <br/>this demo allow you to authenticate based on webcam face recognition.</p>
+              <p>Welcome, <br/>this demo allow you to authenticate based on face recognition. <br/>It use webRTC getUserMedia() for following browser. <br/>For other it fallback to a file selection solution</p>
               <hr/>
               <p>Browser support :<br/></p>
               <div class="media">
@@ -54,21 +54,21 @@
                 </div>
               </div>
               <div class="media">
+                <a class="pull-left" href="http://www.opera.com/mobile/" target="_blank">
+                  <span class="media-object opera"></span>
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading">Opera Mobile Android</h4>
+                  normally it should work on opera mobile for android
+                </div>
+              </div>
+              <div class="media">
                 <a class="pull-left" href="http://nightly.mozilla.org/" target="_blank">
                   <img class="media-object" src="img/firefox-nightly.png">
                 </a>
                 <div class="media-body">
                   <h4 class="media-heading">Firefox nightly</h4>
                   latest version, nothing to do
-                </div>
-              </div>
-              <div class="media">
-                <a class="pull-left" href="https://labs.ericsson.com/apps/bowser" target="_blank">
-                  <img class="media-object" src="img/bowser.png">
-                </a>
-                <div class="media-body">
-                  <h4 class="media-heading">Bowser - iOS and Android</h4>
-                  World's first mobile WebRTC browser
                 </div>
               </div>
               <hr/>
@@ -92,6 +92,7 @@
 
               <p><video id="monitor" autoplay></video> <canvas id="photo" style="display:none;" ></canvas></p>
               <div class="form-inline">
+                <input id="snapshotFile" type="file" accept="image/*" capture="camera" style="display:none;"/>
                 <input value="Login" type=button id="snapshotbutton" class="btn btn-info btn-large">
                 &nbsp;OR&nbsp;
                 <div class="input-append">

@@ -22,3 +22,6 @@ canvas { width: 100%; }
   background-repeat: no-repeat;
   background-position: 0 -144px;
 }
+#app {
+  margin-bottom:30px;
+}
