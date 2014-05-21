@@ -1,6 +1,9 @@
 futureAuth
 ==========
 
+LINK TO THE DEMO
+http://fadomire.futureauth.jit.su/
+
 this demo allow you to authenticate based on face recognition. 
 It use webRTC getUserMedia() for supported browser. 
 For other it fallback to a file selection solution
