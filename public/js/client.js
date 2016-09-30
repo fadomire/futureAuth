@@ -1,4 +1,4 @@
-var socket = io.connect('http://'+window.location.hostname);
+var socket = io.connect('//'+window.location.hostname);
 var video = document.getElementById('monitor');
 var canvas = document.getElementById("photo");
 
